@@ -20,6 +20,12 @@
       "recommended": true,
       "suspicious": {
         "noEmptyInterface": "off"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "warn",
+          "fix": "safe"
+        }
       }
     }
   },
@@ -34,6 +40,17 @@
       "source": {
         "organizeImports": "on"
       }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
     }
   }
 }
