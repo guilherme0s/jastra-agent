@@ -8,6 +8,7 @@ import (
 
 	"github.com/guilherme0s/atlans/pkg/config"
 	"github.com/guilherme0s/atlans/pkg/server"
+	"github.com/guilherme0s/atlans/pkg/store/postgres"
 	"github.com/spf13/cobra"
 )
 
@@ -21,6 +22,12 @@ func init() {
 }
 
 func serverCmdFn(command *cobra.Command, args []string) error {
+	db, err := postgres.New(config.DatabaseSettings{})
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
 	srv := server.New(config.ServerSettings{})
 
 	idleConnsClosed := make(chan struct{})
@@ -34,7 +41,7 @@ func serverCmdFn(command *cobra.Command, args []string) error {
 	}()
 
 	slog.Info("Starting server...")
-	if err := srv.Start(); err != http.ErrServerClosed {
+	if err = srv.Start(); err != http.ErrServerClosed {
 		slog.Error("failed to start server", "err", err)
 		return err
 	}
