@@ -12,3 +12,7 @@ lint:
 		$(GO) install $(GOLANGCI_LINT_MODULE); \
 	fi
 	@$(GOLANGCI_BIN) run $(GOLANGCI_ARGS) ./...
+
+.PHONY: run
+run:
+	@$(GO) run ./cmd/server/main.go server
