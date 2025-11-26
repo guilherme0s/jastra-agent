@@ -16,3 +16,7 @@ lint:
 .PHONY: run
 run:
 	@$(GO) run ./cmd/server/main.go server
+
+.PHONY: migrate
+migrate:
+	@$(GO) run ./cmd/server/main.go migrate

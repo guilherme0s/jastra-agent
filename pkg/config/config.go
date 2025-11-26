@@ -22,6 +22,7 @@ const (
 	DatabaseSettingsDefaultMaxConns        = 100
 	DatabaseSettingsDefaultConnMaxLifetime = 5 * time.Minute
 	DatabaseSettingsDefaultConnMaxIdleTime = 1 * time.Minute
+	DatabaseSettingsDefaultMigrationsPath  = "file://migrations"
 )
 
 type ServerSettings struct {
@@ -65,6 +66,7 @@ type DatabaseSettings struct {
 	MaxConns        int
 	ConnMaxLifetime time.Duration
 	ConnMaxIdleTime time.Duration
+	MigrationsPath  string
 }
 
 func (d *DatabaseSettings) SetDefaults() {
@@ -106,6 +108,10 @@ func (d *DatabaseSettings) SetDefaults() {
 
 	if d.ConnMaxIdleTime == 0 {
 		d.ConnMaxIdleTime = DatabaseSettingsDefaultConnMaxIdleTime
+	}
+
+	if d.MigrationsPath == "" {
+		d.MigrationsPath = DatabaseSettingsDefaultMigrationsPath
 	}
 }
 
